@@ -8,6 +8,36 @@ export const Task = ({
   formatDate, 
   getPriorityClassName 
 }) => {
+  const formatTime = (timestamp) => {
+    if (!timestamp) return '';
+    const date = new Date(timestamp);
+    const hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = (hours % 12 || 12).toString().padStart(2, '0');
+    return `${formattedHours}:${minutes} ${ampm}`;
+  };
+  
+  const formatDueTime = (timeString) => {
+    if (timeString.toLowerCase().includes('am') || timeString.toLowerCase().includes('pm')) {
+      return timeString;
+    }
+    
+    const timeParts = timeString.split(':');
+    if (timeParts.length === 2) {
+      const hours = parseInt(timeParts[0], 10);
+      const minutes = timeParts[1].padStart(2, '0');
+      
+      if (!isNaN(hours) && hours >= 0 && hours <= 23) {
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const formattedHours = (hours % 12 || 12).toString().padStart(2, '0');
+        return `${formattedHours}:${minutes} ${ampm}`;
+      }
+    }
+    
+    return timeString;
+  };
+
   return (
     <li 
       className={`task-item ${task.completed ? 'completed' : ''}`}
@@ -29,12 +59,23 @@ export const Task = ({
           </span>
         </div>
         
-        {(task.dueDate || task.dueTime) && (
-          <p className="task-due">
-            Due: {task.dueDate && formatDate(task.dueDate)}
-            {task.dueTime && (task.dueDate ? ' at ' : '') + task.dueTime}
-          </p>
-        )}
+        <div className="task-dates">
+          {task.dateAdded && (
+            <p className="task-created">
+              Created: {formatDate(new Date(task.dateAdded))} at {formatTime(task.dateAdded)}
+            </p>
+          )}
+          
+          {(task.dueDate || task.dueTime) && (
+            <p className="task-due">
+              Due: {task.dueDate && formatDate(new Date(task.dueDate))}
+              {task.dueTime && (task.dueDate ? ' at ' : '') + 
+                (task.dueTime.toLowerCase().includes('am') || task.dueTime.toLowerCase().includes('pm') 
+                  ? task.dueTime 
+                  : formatDueTime(task.dueTime))}
+            </p>
+          )}
+        </div>
       </div>
       
       <div className="task-actions">

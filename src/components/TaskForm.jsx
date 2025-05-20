@@ -1,4 +1,5 @@
 import React from 'react';
+import { TimePicker } from './ui/TimePicker';
 
 export const TaskForm = ({ 
   taskText, 
@@ -32,27 +33,25 @@ export const TaskForm = ({
         <div className="input-group">
           <label htmlFor="date-input">Due Date</label>
           <div className="input-with-icon">
-            <input
-              id="date-input"
-              type="date"
-              value={dueDate}
-              onChange={(e) => setDueDate(e.target.value)}
-            />
-            <span className="input-icon calendar-icon"></span>
+            <div className="time-input-container">
+              <input
+                id="date-input"
+                type="date"
+                value={dueDate}
+                onChange={(e) => setDueDate(e.target.value)}
+              />
+              <span className="input-icon calendar-icon"></span>
+            </div>
           </div>
         </div>
         
         <div className="input-group">
           <label htmlFor="time-input">Due Time</label>
-          <div className="input-with-icon">
-            <input
-              id="time-input"
-              type="time"
-              value={dueTime}
-              onChange={(e) => setDueTime(e.target.value)}
-            />
-            <span className="input-icon clock-icon"></span>
-          </div>
+          <TimePicker 
+            value={dueTime} 
+            onChange={setDueTime}
+            id="time-input"
+          />
         </div>
       </div>
       

@@ -148,6 +148,10 @@ body {
   text-decoration: line-through;
   color: grey;
 }
+.task-dates{
+  font-size: 14px;
+  color: grey;
+}
 
 .task-due {
   font-size: 14px;
@@ -515,8 +519,6 @@ body {
   100% { transform: rotate(360deg); }
 }
 
-/* Add these styles to todolistStyle.css */
-
 .filter-container {
   display: flex;
   margin-bottom: 15px;
@@ -547,7 +549,6 @@ body {
   background-color: rgba(255, 255, 255, 0.25);
 }
 
-/* Responsive styles for filter container */
 @media (max-width: 768px) {
   .filter-container {
     width: 100%;
@@ -557,4 +558,29 @@ body {
     padding: 8px 10px;
     font-size: 13px;
   }
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 150px;
+  text-align: center;
+}
+
+.loading-spinner .spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+.loading-spinner p {
+  color: white;
+  font-weight: 500;
 }

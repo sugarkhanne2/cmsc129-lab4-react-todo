@@ -19,7 +19,7 @@ export const useTaskManager = () => {
   const [taskText, setTaskText] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [dueTime, setDueTime] = useState('');
-  const [priority, setPriority] = useState('Mid'); // Default priority
+  const [priority, setPriority] = useState(''); 
   
   // State for editing
   const [editingTaskId, setEditingTaskId] = useState(null);
@@ -71,7 +71,6 @@ export const useTaskManager = () => {
     fetchTasks();
   }, []);
 
-  // Hide toast after 5 seconds
   useEffect(() => {
     let toastTimer;
     if (showToast) {
